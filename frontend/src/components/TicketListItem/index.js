@@ -99,6 +99,21 @@ const useStyles = makeStyles(theme => ({
 		top: "0%",
 		left: "0%",
 	},
+
+	userTag: {
+		position: "absolute",
+		marginRight: 5,
+		right: 5,
+		bottom: 5,
+		background:"#005a0c",
+		color: "#ffffff",
+		border:"1px solid #CCC",
+		padding: 1,
+		paddingLeft: 5,
+		paddingRight: 5,
+		borderRadius: 10,
+		fontSize: "1em"
+	},
 }));
 
 const TicketListItem = ({ ticket }) => {
@@ -178,7 +193,7 @@ const TicketListItem = ({ ticket }) => {
 							{ticket.status === "closed" && (
 								<Badge
 									className={classes.closedBadge}
-									badgeContent={"closed"}
+									badgeContent={"resolvido"}
 									color="primary"
 								/>
 							)}
@@ -195,6 +210,9 @@ const TicketListItem = ({ ticket }) => {
 										<>{format(parseISO(ticket.updatedAt), "dd/MM/yyyy")}</>
 									)}
 								</Typography>
+							)}
+							{ticket.whatsappId && (
+							<div className={classes.userTag} title={i18n.t("ticketsList.connectionTitle")}>CHIP {ticket.whatsappId}</div>
 							)}
 						</span>
 					}

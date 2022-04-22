@@ -217,7 +217,7 @@ const LoggedInLayout = ({ children }) => {
             noWrap
             className={classes.title}
           >
-            WhaTicket
+            ZAP das Galáxias - Multiusuários
           </Typography>
           {user.id && <NotificationsPopOver />}
 

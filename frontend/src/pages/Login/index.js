@@ -2,7 +2,6 @@ import React, { useState, useContext } from "react";
 import { Link as RouterLink } from "react-router-dom";
 
 import {
-  Avatar,
   Button,
   CssBaseline,
   TextField,
@@ -15,26 +14,13 @@ import {
   Link
 } from '@material-ui/core';
 
-import { LockOutlined, Visibility, VisibilityOff } from '@material-ui/icons';
+import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { makeStyles } from "@material-ui/core/styles";
 
 import { i18n } from "../../translate/i18n";
 
 import { AuthContext } from "../../context/Auth/AuthContext";
-
-// const Copyright = () => {
-// 	return (
-// 		<Typography variant="body2" color="textSecondary" align="center">
-// 			{"Copyleft "}
-// 			<Link color="inherit" href="https://github.com/canove">
-// 				Canove
-// 			</Link>{" "}
-// 			{new Date().getFullYear()}
-// 			{"."}
-// 		</Typography>
-// 	);
-// };
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -77,9 +63,7 @@ const Login = () => {
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlined />
-        </Avatar>
+        <img src={require('./icone.png')} height='120' frameBorder="0" alt="chatbotzdg"/>
         <Typography component="h1" variant="h5">
           {i18n.t("login.title")}
         </Typography>

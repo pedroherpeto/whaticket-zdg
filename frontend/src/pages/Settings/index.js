@@ -121,9 +121,7 @@ const Settings = () => {
 							{i18n.t("settings.settings.userCreation.options.disabled")}
 						</option>
 					</Select>
-
-				</Paper>
-
+				</Paper>							
 				<Paper className={classes.paper}>
 					<TextField
 						id="api-token-setting"
@@ -135,7 +133,6 @@ const Settings = () => {
 						value={settings && settings.length > 0 && getSettingValue("userApiToken")}
 					/>
 				</Paper>
-
 			</Container>
 		</div>
 	);

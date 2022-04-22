@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import openSocket from "socket.io-client";
 import clsx from "clsx";
 
-import { Paper, makeStyles } from "@material-ui/core";
+import { Paper, makeStyles, Switch, FormGroup, FormControlLabel, Grid, Box } from "@material-ui/core";
 
 import ContactDrawer from "../ContactDrawer";
 import MessageInput from "../MessageInput/";
@@ -71,9 +71,43 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginRight: 0,
   },
+  button: {
+		position: "relative",
+		backgroundColor: "green",
+    fontSize: "10px",
+    margin: "35px",
+    marginLeft: "2px",
+    marginRight: "2px",
+    color: "#FFF",
+    width: "5%",
+    '&:hover': {
+      backgroundColor: "red",
+      color: "#FFF"
+    },    [theme.breakpoints.down("sm")]: {
+      maxWidth: "100%",
+      flexBasis: "100%",
+      margin: "5px",
+      marginLeft: "50px",
+      marginRight: "50px",
+      marginBottom: "5px",
+    },
+	},
+  box: {
+		position: "relative",
+    marginLeft: "2px",
+    marginRight: "2px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    },
+	},
 }));
 
 const Ticket = () => {
+
+  const [checked, setChecked] = React.useState(false);
+  const [checked2, setChecked2] = React.useState(false);
+  const [checked3, setChecked3] = React.useState(false);
+
   const { ticketId } = useParams();
   const history = useHistory();
   const classes = useStyles();
@@ -82,6 +116,30 @@ const Ticket = () => {
   const [loading, setLoading] = useState(true);
   const [contact, setContact] = useState({});
   const [ticket, setTicket] = useState({});
+
+  async function DialogFlowOn() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DO PASSAPORTE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
+
+  async function DialogFlowOff() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DO PASSAPORTE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
+
+  async function DialogFlowOnAudio() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DO PASSAPORTE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
+
+  async function DialogFlowOffAudio() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DO PASSAPORTE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
+
+  async function ChatBotOn() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DO PASSAPORTE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
+
+  async function ChatBotOff() {
+    alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DA COMUNIDADE ZDG.\n👉 https://zapdasgalaxias.com.br/passaporte-zdg-2');
+  }
 
   useEffect(() => {
     setLoading(true);
@@ -143,6 +201,39 @@ const Ticket = () => {
     setDrawerOpen(false);
   };
 
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+    if(checked === false)
+    {
+      DialogFlowOn();
+    }
+    else if (checked === true ){
+      DialogFlowOff();
+    }
+  };
+
+  const handleChange2 = (event) => {
+    setChecked2(event.target.checked);
+    if(checked2 === false)
+    {
+      ChatBotOn();
+    }
+    else if (checked2 === true ){
+      ChatBotOff();
+    }
+  };
+
+  const handleChange3 = (event) => {
+    setChecked3(event.target.checked);
+    if(checked3 === false)
+    {
+      DialogFlowOnAudio();
+    }
+    else if (checked3 === true ){
+      DialogFlowOffAudio();
+    }
+  };
+
   return (
     <div className={classes.root} id="drawer-container">
       <Paper
@@ -163,7 +254,45 @@ const Ticket = () => {
           <div className={classes.ticketActionButtons}>
             <TicketActionButtons ticket={ticket} />
           </div>
+          {/* <Button className={classes.button} onClick={() => {DialogFlowOn();}}>DialogON</Button>
+          <Button className={classes.button} onClick={() => {DialogFlowOff();}}>DialogOff</Button>
+          <Button className={classes.button} onClick={() => {ChatBotOn();}}>MYSQLOn</Button>
+          <Button className={classes.button} onClick={() => {ChatBotOff();}}>MYSQLOff</Button> */}
         </TicketHeader>
+        <Box className={classes.box}>
+        <Grid container spacing={1} style={{display:'flex', alignItems:'center', textAlign: 'center', backgroundColor:'#ebebeb', padding:'10px'}}>
+          <Grid item xs={12} md={4} sm={3}>
+          <FormGroup row>
+          <FormControlLabel control={
+          <Switch
+            checked={checked}
+            onChange={handleChange}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />}label="DialogFlow" />
+          </FormGroup>
+          </Grid>
+          <Grid item xs={12} md={4} sm={3}>
+          <FormGroup row>
+          <FormControlLabel control={
+          <Switch
+            checked={checked3}
+            onChange={handleChange3}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />}label="DialogFlowAudio" />
+          </FormGroup>
+          </Grid>
+          <Grid item xs={12} md={4} sm={3}>
+          <FormGroup row>
+          <FormControlLabel control={
+          <Switch
+            checked={checked2}
+            onChange={handleChange2}
+            inputProps={{ 'aria-label': 'controlled' }}
+          />}label="MYSQL" />
+          </FormGroup>
+          </Grid>
+        </Grid>
+        </Box>
         <ReplyMessageProvider>
           <MessagesList
             ticketId={ticketId}

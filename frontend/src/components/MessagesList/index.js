@@ -23,12 +23,17 @@ import {
 
 import MarkdownWrapper from "../MarkdownWrapper";
 import VcardPreview from "../VcardPreview";
+import LocationPreview from "../LocationPreview";
 import ModalImageCors from "../ModalImageCors";
 import MessageOptionsMenu from "../MessageOptionsMenu";
 import whatsBackground from "../../assets/wa-background.png";
 
 import api from "../../services/api";
 import toastError from "../../errors/toastError";
+
+import {CSVLink} from 'react-csv';
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme) => ({
   messagesListWrapper: {
@@ -257,6 +262,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "inherit",
     padding: 10,
   },
+  box: {
+		position: "relative",
+    marginLeft: "2px",
+    marginRight: "2px",
+    [theme.breakpoints.down("sm")]: {
+      display: "none"
+    },
+	},
 }));
 
 const reducer = (state, action) => {
@@ -307,6 +320,7 @@ const reducer = (state, action) => {
 
 const MessagesList = ({ ticketId, isGroup }) => {
   const classes = useStyles();
+  const [inputs, setInputs] = useState({});
 
   const [messagesList, dispatch] = useReducer(reducer, []);
   const [pageNumber, setPageNumber] = useState(1);
@@ -318,6 +332,12 @@ const MessagesList = ({ ticketId, isGroup }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const messageOptionsMenuOpen = Boolean(anchorEl);
   const currentTicketId = useRef(ticketId);
+  
+  const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setInputs(values => ({...values, [name]: value}))
+	}
 
   useEffect(() => {
     dispatch({ type: "RESET" });
@@ -414,7 +434,19 @@ const MessagesList = ({ ticketId, isGroup }) => {
   };
 
   const checkMessageMedia = (message) => {
-	if (message.mediaType === "vcard") {
+    if(message.mediaType === "location" && message.body.split('|').length >= 2) {
+      let locationParts = message.body.split('|')
+      let imageLocation = locationParts[0]		
+      let linkLocation = locationParts[1]
+      
+      let descriptionLocation = null
+      
+      if(locationParts.length > 2)
+        descriptionLocation = message.body.split('|')[2]
+      
+      return <LocationPreview image={imageLocation} link={linkLocation} description={descriptionLocation} />
+    }
+	  else if (message.mediaType === "vcard") {
 		//console.log("vcard")
 		//console.log(message)
 		let array = message.body.split("\n");
@@ -668,6 +700,60 @@ const MessagesList = ({ ticketId, isGroup }) => {
 
   return (
     <div className={classes.messagesListWrapper}>
+      <Box className={classes.box}>
+      <Grid container spacing={0} style={{ display:'flex', alignItems:'center', textAlign: 'center', backgroundColor:'#ebebeb', paddingBottom:'10px'}}>
+        <Grid item xs={12} md={2} sm={2}>
+          <Button
+          style={{fontSize:"10px"}}
+          variant="contained"
+          color="primary"
+          onClick={() => {alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DA COMUNIDADE ZDG.\n👉 https://zapdasgalaxias.com.br/');}}>
+            ID WPP
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={2} sm={2}>
+            <input 
+              type="text" 
+              name="id" 
+              value={inputs.id || ""} 
+              onChange={handleChange}
+              required="required"
+              placeholder="ID WPP"
+              style={{width:"50%"}}
+            />
+        </Grid>
+        <Grid item xs={12} md={2} sm={2}>
+            <input 
+              type="text" 
+              name="limite" 
+              value={inputs.limite || ""} 
+              onChange={handleChange}
+              required="required"
+              placeholder="LIMITE"
+              style={{width:"50%"}}
+            />
+        </Grid>
+        <Grid item xs={12} md={3} sm={4}>
+          <Button
+          style={{fontSize:"10px"}}
+          variant="contained"
+          color="primary"
+          onClick={() => {alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DA COMUNIDADE ZDG.\n👉 https://zapdasgalaxias.com.br/');}}>
+            IMPORTAR CONVERSAS
+          </Button>
+        </Grid>
+        <Grid item xs={12} md={3} sm={4}>
+          <CSVLink style={{ textDecoration:'none', backgroundColor:'#ebebeb'}} separator=";" filename={'zdg.csv'} data={messagesList.map((message) => ({ body: message.body, id: message.id, fromMe: message.fromMe, quoted : message.quotedMsg, isDel: message.isDeleted, mediaUrl : message.mediaUrl, type: message.mediaType, created : message.createdAt}))}>
+            <Button
+            style={{fontSize:"10px"}}
+            variant="contained"
+            color="primary">
+              EXPORTAR CONVERSAS
+            </Button>
+          </CSVLink>
+        </Grid>
+      </Grid>
+      </Box>
       <MessageOptionsMenu
         message={selectedMessage}
         anchorEl={anchorEl}

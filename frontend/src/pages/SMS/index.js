@@ -2,36 +2,9 @@ import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-const http = require('http');
-
-const init = {
-  host: 'localhost',
-  path: '/sendSms',
-  port: 8080,
-  method: 'POST',
-  headers: {
-    'content-type': 'application/json; charset=utf-8'
-  }
-};
-
-const callback = function(response) {
-  let result = Buffer.alloc(0);
-  response.on('data', function(chunk) {
-    result = Buffer.concat([result, chunk]);
-  });
-  
-  response.on('end', function() {
-    console.log(result.toString());
-  });
-};
-
-async function ZDGSms(from, to, text) {
-	const req = http.request(init, callback);
-	const body = '{"from":"'+ from + '","to":"' + to + '","text":"' + text + '"}';
-	await req.write(body);
-	req.end();
-}
+import TextField from '@material-ui/core/TextField';
+import Paper from "@material-ui/core/Paper";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -43,7 +16,22 @@ const useStyles = makeStyles(theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		display: "flex",
+		justifyContent: "center",
 		alignItems: "center",
+		textAlign: "center",
+		verticalAlign: "middle",
+		marginBottom: 12,
+	},
+
+	button: {
+		padding: theme.spacing(2),
+		display: "inline-flex",
+		justifyContent: "center",
+		alignItems: "center",
+		textAlign: "center",
+		verticalAlign: "middle",
+		marginBottom: 12,
+		marginRight: 12,
 	},
 
 	settingOption: {
@@ -66,14 +54,7 @@ const SMS = () => {
 	
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		alert('As mensagens estão sendo carregadas! Aguarde...');
-		const usersTextArea = inputs.user.split('\n');
-		usersTextArea.forEach((user) => {
-			setTimeout(function() {
-				ZDGSms(inputs.from, user, inputs.message);
-				alert('Mensagem enviada para o número: ' + user);
-				},5000 + Math.floor(Math.random() * 10))            
-		  });
+		alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DA COMUNIDADE ZDG.\n👉 https://zapdasgalaxias.com.br/');
 	}
 	
 	useEffect(() => {
@@ -86,45 +67,63 @@ const SMS = () => {
 	return (
 		<div className={classes.root}>  
 			<Container className={classes.container} maxWidth="sm">
-			<h1>Envio de SMS</h1>
+			<Paper className={classes.paper}>
+			<h1> Disparo de SMS</h1>
+			</Paper>
+			<Paper className={classes.paper}>
+			<h3><span role="img" aria-label="warning">⚠️</span> Envio de SMS via VONAGE API.</h3>
+			</Paper>
+			<Paper className={classes.paper}>
+			<h3><span role="img" aria-label="phone">📱</span> Essa funcionalidade depende da configuração e compra de créditos direto com a VONAGE API.</h3>
+			</Paper>
 			<form onSubmit={handleSubmit}>
-				<label>Números:<br/>
-				<textarea 
+				<Paper className={classes.paper}>
+				<TextField 
+					id="outlined-basic" 
+					label="Números" 
+					variant="outlined" 
 					name="user" 
-					cols="40" 
-					rows="5"
 					value={inputs.user || ""} 
 					onChange={handleChange}
 					required="required"
+					fullWidth
+					multiline
+					margin="dense"
 					placeholder="553588754197&#13;&#10;553588754197&#13;&#10;553588754197&#13;&#10;553588754197"
-				></textarea>
-				</label><br/><br/>
-				<label>Mensagem<br/>
-				<textarea 
+				/>
+				</Paper>
+				<Paper className={classes.paper}>
+				<TextField 
+					id="outlined-basic" 
+					label="Mensagem" 
+					variant="outlined" 
 					name="message" 
-					cols="40" 
-					rows="5"
 					value={inputs.message || ""} 
 					onChange={handleChange}
 					required="required"
+					fullWidth
+					multiline
+					margin="dense"
 					placeholder="Olá, tudo bem?&#13;&#10;Como posso te ajudar?&#13;&#10;Abraços, a gente se vê!"
-				></textarea>
-				</label><br/><br/>
-				<label>Remetente<br/>
-				<input 
-					type="text" 
+				/>
+				</Paper>
+				<Paper className={classes.paper}>
+				<TextField 
+					id="outlined-basic" 
+					label="Remetente" 
+					variant="outlined" 
 					name="from" 
 					value={inputs.from || ""} 
 					onChange={handleChange}
 					required="required"
+					fullWidth
+					margin="dense"
 					placeholder="Pedrinho da NASA"
 				/>
-				</label><br/><br/>	
-				<input 
-				style={{ color:"white", backgroundColor:"#f50057", borderColor:"#f50057", borderRadius: "4px", padding: "10px" }}
-				type="submit" 
-				value="Disparar"
-				/>
+				</Paper>
+				<Button variant="contained" color="secondary" className={classes.button} type="submit">
+				DISPARAR
+				</Button>
 			</form>
 			</Container>
 		</div>

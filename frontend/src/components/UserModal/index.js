@@ -194,7 +194,7 @@ const UserModal = ({ open, onClose, userId }) => {
 								<div className={classes.multFieldLine}>
 									<Field
 										as={TextField}
-										label={i18n.t("userModal.form.email")}
+										label={i18n.t("userModal.form.")}
 										name="email"
 										error={touched.email && Boolean(errors.email)}
 										helperText={touched.email && errors.email}

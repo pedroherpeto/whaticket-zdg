@@ -2,36 +2,9 @@ import React, { useEffect, useState } from "react";
 import openSocket from "socket.io-client";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-
-const http = require('http');
-
-const init = {
-  host: 'localhost',
-  path: '/sendDirect',
-  port: 8080,
-  method: 'POST',
-  headers: {
-    'content-type': 'application/json; charset=utf-8'
-  }
-};
-
-const callback = function(response) {
-  let result = Buffer.alloc(0);
-  response.on('data', function(chunk) {
-    result = Buffer.concat([result, chunk]);
-  });
-  
-  response.on('end', function() {
-    console.log(result.toString());
-  });
-};
-
-async function ZDGSender(userIg, message) {
-	const req = http.request(init, callback);
-	const body = '{"userIg":"' + userIg + '","message":"' + message + '"}';
-	await req.write(body);
-	req.end();
-}
+import TextField from '@material-ui/core/TextField';
+import Paper from "@material-ui/core/Paper";
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -43,7 +16,22 @@ const useStyles = makeStyles(theme => ({
 	paper: {
 		padding: theme.spacing(2),
 		display: "flex",
+		justifyContent: "center",
 		alignItems: "center",
+		textAlign: "center",
+		verticalAlign: "middle",
+		marginBottom: 12,
+	},
+
+	button: {
+		padding: theme.spacing(2),
+		display: "inline-flex",
+		justifyContent: "center",
+		alignItems: "center",
+		textAlign: "center",
+		verticalAlign: "middle",
+		marginBottom: 12,
+		marginRight: 12,
 	},
 
 	settingOption: {
@@ -66,11 +54,7 @@ const DirectInsta = () => {
 	
 	const handleSubmit = (event) => {
 		event.preventDefault();
-		alert('As mensagens estão sendo carregadas! Aguarde...');
-			setTimeout(function() {
-				ZDGSender(inputs.userIg, inputs.message);
-				alert('Mensagem enviada para o instagram de: ' + inputs.userIg);
-				},5000 + Math.floor(Math.random() * 10000))            
+		alert('FERRAMENTA DISPONÍVEL NA VERSÃO PRO DA COMUNIDADE ZDG.\n👉 https://zapdasgalaxias.com.br/');         
 	}
 	
 	useEffect(() => {
@@ -83,34 +67,46 @@ const DirectInsta = () => {
 	return (
 		<div className={classes.root}>  
 			<Container className={classes.container} maxWidth="sm">
+			<Paper className={classes.paper}>
+			<h1> Disparo automátio de DIRECTS</h1>
+			</Paper>
+			<Paper className={classes.paper}>
+			<h3><span role="img" aria-label="warning">⚠️</span> API limitada pelo mecanismo anti-spam do IG. Sujeito a banimentos ou quedas inesperadas.</h3>
+			</Paper>
 			<form onSubmit={handleSubmit}>
-				<h1>Envio de Directs</h1>
-				<label>Destinatários IG:<br/>
-				<textarea 
+				<Paper className={classes.paper}>
+				<TextField 
+					id="outlined-basic" 
+					label="Destinatários IG" 
+					variant="outlined" 
 					name="userIg" 
-					cols="40" 
-					rows="5"
 					value={inputs.userIg || ""} 
 					onChange={handleChange}
 					required="required"
-				></textarea>
-				</label><br/><br/>
-				<label>Mensagem<br/>
-				<textarea 
+					fullWidth
+					multiline
+					margin="dense"
+					placeholder="usuário IG&#13;&#10;usuário IG&#13;&#10;usuário IG&#13;&#10;usuário IG"
+				/>
+				</Paper>
+				<Paper className={classes.paper}>
+				<TextField 
+					id="outlined-basic" 
+					label="Mensagem" 
+					variant="outlined" 
 					name="message" 
-					cols="40" 
-					rows="5"
 					value={inputs.message || ""} 
 					onChange={handleChange}
 					required="required"
+					fullWidth
+					multiline
+					margin="dense"
 					placeholder="Olá, tudo bem?&#13;&#10;Como posso te ajudar?&#13;&#10;Abraços, a gente se vê!"
-				></textarea>
-				</label><br/><br/>
-				<input 
-				style={{ color:"white", backgroundColor:"	#f50057", borderColor:"#f50057", borderRadius: "4px", padding: "10px" }}
-				type="submit" 
-				value="Disparar"
 				/>
+				</Paper>
+				<Button variant="contained" color="secondary" className={classes.button} type="submit">
+				DISPARAR
+				</Button>
 			</form>
 			</Container>
 		</div>

@@ -36,7 +36,8 @@ const ZDGChatbot = () => {
 
 	return (
 		<div className={classes.root}> 
-		<iframe title="ZDGChatbot" src='http://localhost:3001' height='800' width='100%' frameBorder="0"/>  
+		<img src={require('./chatbot.png')} height='800' width='100%' frameBorder="0" alt="chatbotzdg"/>
+		{/* <iframe title="ZDGChatbot" src='https://zapdasgalaxias.com.br/passaporte-zdg-2' height='800' width='100%' frameBorder="0"/>   */}
 		</div>
 	);
 };

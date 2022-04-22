@@ -16,10 +16,14 @@ import Queues from "../pages/Queues/";
 import ZDG from "../pages/ZDG/";
 import ZDGMedia from "../pages/ZDGMedia/";
 import ZDGGroups from "../pages/ZDGGroups/";
+import ZDGComunidade from "../pages/ZDGComunidade/";
+import ZDGPassaporte from "../pages/ZDGPassaporte/";
 import InstaDirect from "../pages/InstaDirect/";
 import SMS from "../pages/SMS/";
 import VoiceCall from "../pages/VoiceCall/";
 import ZDGChatbot from "../pages/ZDGChatbot";
+import ZDGHistorico from "../pages/ZDGHistorico";
+import ZDGAgendamento from "../pages/ZDGAgendamento";
 import { AuthProvider } from "../context/Auth/AuthContext";
 import { WhatsAppsProvider } from "../context/WhatsApp/WhatsAppsContext";
 import Route from "./Route";
@@ -57,12 +61,16 @@ const Routes = () => {
               <Route exact path="/Settings" component={Settings} isPrivate />
               <Route exact path="/Queues" component={Queues} isPrivate />
               <Route exact path="/ZDGChatbot" component={ZDGChatbot} isPrivate />
+              <Route exact path="/ZDGAgendamento" component={ZDGAgendamento} isPrivate />
               <Route exact path="/ZDG" component={ZDG} isPrivate />
               <Route exact path="/ZDGMedia" component={ZDGMedia} isPrivate />
               <Route exact path="/ZDGGroups" component={ZDGGroups} isPrivate />
               <Route exact path="/InstaDirect" component={InstaDirect} isPrivate />
               <Route exact path="/SMS" component={SMS} isPrivate />
               <Route exact path="/VoiceCall" component={VoiceCall} isPrivate />
+              <Route exact path="/ZDGHistorico" component={ZDGHistorico} isPrivate />
+              <Route exact path="/ZDGComunidade" component={ZDGComunidade} isPrivate />
+              <Route exact path="/ZDGPassaporte" component={ZDGPassaporte} isPrivate />
             </LoggedInLayout>
           </WhatsAppsProvider>
         </Switch>

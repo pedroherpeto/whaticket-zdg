@@ -36,9 +36,20 @@ const messages = {
       dashboard: {
         charts: {
           perDay: {
-            title: "Tickets hoje: ",
+            title: "Tickets de hoje: ",
           },
         },
+        messages: {
+          inAttendance: {
+            title: "Em serviço"
+          },
+          waiting: {
+            title: "Esperando"
+          },
+          closed: {
+            title: "Fechado"
+          }
+        }
       },
       connections: {
         title: "Conexões do WhatsApp",
@@ -250,6 +261,7 @@ const messages = {
         noTicketsTitle: "Nada aqui!",
         noTicketsMessage:
           "Nenhum ticket encontrado com esse status ou termo pesquisado",
+        connectionTitle: "Conexão que está sendo utilizada atualmente.",
         buttons: {
           accept: "Aceitar",
         },
@@ -280,8 +292,14 @@ const messages = {
           Direct: "Direct IG",
           SMS: "SMS",
           VoiceCall: "Chamada Telefônica",
-          ZDGChatbot: "Chatbot"
-
+          ZDGChatbot: "Chatbot",
+          ZDGAgendamento: "Agendadas",
+          ZDGHistorico: "Histórico",
+          Free: "Versão Gratuita",
+          Pay: "Versão PRO",
+          LicenseComunidade: "Sem Chatbot",
+          LicensePassaporte: "Com Chatbot",
+          LicenseComprar: "Adquirir Licença"
         },
         appBar: {
           user: {
@@ -362,6 +380,37 @@ const messages = {
             options: {
               enabled: "Ativado",
               disabled: "Desativado",
+            },
+          },
+          timeCreateNewTicket: {
+            name: "Mensagem de boas-vindas após",
+            note: "Selecione o tempo que será necessário para abrir um novo ticket, caso o cliente entre em contatos novamente",
+            options: {
+              "10": "10 Segundos",
+              "30": "30 Segundos",
+              "60": "1 minuto",
+              "300": "5 minutos",
+              "1800" : "30 minutos",
+              "3600" : "1 hora",
+              "7200" : "2 horas",
+              "21600" : "6 horas",
+              "43200" : "12 horas",
+              "86400" : "24 horas",
+              "172800" : "48 horas",
+            },
+          },  
+          call: {
+            name: "Aceitar chamadas",
+            options: {
+              enabled: "Ativado",
+              disabled: "Desativado",
+            },
+          },
+          CheckMsgIsGroup: {
+            name: "Ignorar Mensagens de Grupos",
+            options: {
+                enabled: "Ativado",
+                disabled: "Desativado",
             },
           },
         },
