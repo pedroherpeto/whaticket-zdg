@@ -8,7 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
-import brLocale from 'date-fns/locale/pt-br';
+import brLocale from 'date-fns/locale/fr';
 
 const http = require('https');
 
