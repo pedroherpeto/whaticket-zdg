@@ -9,7 +9,7 @@ Conheça o canal do Zap das Galáxias:
 
 ### Como usar?
 
-- <a href="https://www.youtube.com/channel/UCrPbAoQKz42Gm0mLdWatAEA">Vídeo de Instalação</a>
+- <a href="https://youtu.be/r-Ag8YU-b38">Vídeo de Instalação</a>
 
 
 ## Conheça a Comunidade ZDG
