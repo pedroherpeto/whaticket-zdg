@@ -1,6 +1,6 @@
 # WHATICKET ZDG
 
-Olá, essa é uma implementação da biblioteca <a href="https://github.com/pedroslopez/whatsapp-web.js">whatsapp-web.js</a>
+Olá, essa é uma implementação da biblioteca <a href="https://github.com/pedroslopez/whatsapp-web.js">wweb.js</a>
 
 Conheça o canal da Comunidade ZDG:
 
