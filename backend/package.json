@@ -51,7 +51,7 @@
     "socket.io": "^3.0.5",
     "util": "^0.12.4",
     "uuid": "^8.3.2",
-    "whatsapp-web.js": "https://github.com/Julzk/whatsapp-web.js/tarball/jkr_hotfix_7",
+    "whatsapp-web.js": "^1.23.0",
     "yup": "^0.32.8"
   },
   "devDependencies": {
